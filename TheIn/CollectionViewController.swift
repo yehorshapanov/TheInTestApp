@@ -10,7 +10,7 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
-class TICollectionViewController: UICollectionViewController, AlertDisplayer {
+class CollectionViewController: UICollectionViewController, AlertDisplayer {
     
     let searchController = UISearchController(searchResultsController: nil)
     private var viewModel: PhotosViewModel!
@@ -111,7 +111,7 @@ class TICollectionViewController: UICollectionViewController, AlertDisplayer {
     }
 }
 
-extension TICollectionViewController: UICollectionViewDataSourcePrefetching {
+extension CollectionViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
         if indexPaths.contains(where: isLoadingCell) {
             viewModel.fetchPhotos()
@@ -119,7 +119,7 @@ extension TICollectionViewController: UICollectionViewDataSourcePrefetching {
     }
 }
 
-private extension TICollectionViewController {
+private extension CollectionViewController {
     func isLoadingCell(for indexPath: IndexPath) -> Bool {
         return indexPath.row >= viewModel.currentCount
     }
@@ -131,7 +131,7 @@ private extension TICollectionViewController {
     }
 }
 
-extension TICollectionViewController: PhotosViewModelDelegate {
+extension CollectionViewController: PhotosViewModelDelegate {
     func onFetchCompleted(with newIndexPathsToReload: [IndexPath]?) {
         indicatorView.stopAnimating()
         collectionView.isHidden = false
@@ -151,15 +151,26 @@ extension TICollectionViewController: PhotosViewModelDelegate {
     }
 }
 
+extension CollectionViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? PhotoViewController {
+            if let indexPath = collectionView.indexPath(for: sender as! PhotoCollectionViewCell) {
+                destination.index = indexPath.row
+                destination.viewModel = viewModel
+            }
+        }
+    }
+}
 
-extension TICollectionViewController: UISearchResultsUpdating {
+
+extension CollectionViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
         print(searchBar.text!)
     }
 }
 
-extension TICollectionViewController: UICollectionViewDelegateFlowLayout {
+extension CollectionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width / 3.0
         let height = width

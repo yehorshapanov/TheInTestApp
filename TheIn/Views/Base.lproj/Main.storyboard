@@ -8,20 +8,39 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Photo View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="TheIn" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="PhotoViewController" customModule="TheIn" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sJO-kJ-Uy1">
+                                <rect key="frame" x="10" y="108" width="394" height="734"/>
+                            </imageView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="AuM-LU-cs6">
+                                <rect key="frame" x="197" y="465" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="sJO-kJ-Uy1" secondAttribute="trailing" constant="10" id="3e7-DW-8zm"/>
+                            <constraint firstItem="sJO-kJ-Uy1" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="Cpo-2B-kCO"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="sJO-kJ-Uy1" secondAttribute="bottom" constant="20" id="J6f-tB-Bxq"/>
+                            <constraint firstItem="sJO-kJ-Uy1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="b7u-iP-W3V"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="imageView" destination="sJO-kJ-Uy1" id="yCI-Lb-c1O"/>
+                        <outlet property="indicatorView" destination="AuM-LU-cs6" id="rVC-ev-Uqc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="297" y="-82"/>
+            <point key="canvasLocation" x="295.6521739130435" y="-82.366071428571431"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="TdQ-Zc-ezV">
@@ -42,7 +61,7 @@
         <!--Collection View Controller-->
         <scene sceneID="Pru-8S-yCf">
             <objects>
-                <collectionViewController id="146-uN-uhH" customClass="TICollectionViewController" customModule="TheIn" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController id="146-uN-uhH" customClass="CollectionViewController" customModule="TheIn" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="bLa-Zv-6bu">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -79,6 +98,7 @@
                                 <connections>
                                     <outlet property="imageView" destination="jfg-lr-hjY" id="gcv-ld-zCr"/>
                                     <outlet property="indicatorView" destination="MpK-PM-GIX" id="hQW-RK-tWQ"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="mVj-PX-HO5"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>

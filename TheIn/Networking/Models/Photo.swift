@@ -13,6 +13,7 @@ struct Photo: Decodable {
     let rawImage: String
     let thumbnail: String
     let thumbnailRecord: PhotoRecord
+    let rawImageRecord: PhotoRecord
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -28,6 +29,7 @@ struct Photo: Decodable {
         self.rawImage = rawImage
         self.thumbnail = thumbnail
         self.thumbnailRecord = PhotoRecord(url: URL(string: thumbnail)!)
+        self.rawImageRecord = PhotoRecord(url: URL(string: rawImage)!)
     }
     
     init(from decoder: Decoder) throws {
@@ -41,15 +43,15 @@ struct Photo: Decodable {
 }
 
 enum PhotoRecordState {
-  case new, downloaded, failed
+    case new, downloaded, failed
 }
 
 class PhotoRecord {
-  let url: URL
-  var state = PhotoRecordState.new
+    let url: URL
+    var state = PhotoRecordState.new
     var image: UIImage?
-  
-  init(url:URL) {
-    self.url = url
-  }
+    
+    init(url:URL) {
+        self.url = url
+    }
 }
